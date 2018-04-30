@@ -11,14 +11,14 @@ app.get('/client.js', function(req, res){
 });
 
 io.on('connection', function(socket){
-  socket.on('new entry', function(name){
-    socket.broadcast.emit('chat message', name + ' has joined.');
+  socket.on('new_entry', function(name){
+    socket.broadcast.emit('chat_message', name + ' has joined.');
   });
   
-  socket.on('new message', function(data){
+  socket.on('new_message', function(data){
     var name = data.name;
     var msg = data.msg;
-    io.emit('chat message', name + ": " + msg);
+    io.emit('chat_message', name + ": " + msg);
   });
 });
 

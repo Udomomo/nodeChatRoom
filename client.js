@@ -5,11 +5,11 @@ $(function () {
   
   $('form').submit(function(){
     if (newEntry){
-      socket.emit('new entry', $('#m').val());
+      socket.emit('new_entry', $('#m').val());
       name = $('#m').val();
       changeLabel();
     }else{
-      socket.emit('new message', {"name": name, "msg": $('#m').val()});
+      socket.emit('new_message', {"name": name, "msg": $('#m').val()});
     }
 
     $('#m').val('');
@@ -22,7 +22,7 @@ $(function () {
     newEntry = false;
   }
 
-  socket.on('chat message', function(msg){
+  socket.on('chat_message', function(msg){
     $('#messages').append($('<li>').text(msg));
   });
 });
