@@ -1,6 +1,6 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+let app = require('express')();
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
@@ -11,14 +11,14 @@ app.get('/client.js', function(req, res){
 });
 
 io.on('connection', function(socket){
-  var name;
   socket.on('new_entry', function(name){
+  let name;
     socket.broadcast.emit('chat_message', name + ' has joined.');
   });
   
   socket.on('new_message', function(data){
     name = data.name;
-    var msg = data.msg;
+    let msg = data.msg;
     io.emit('chat_message', name + ": " + msg);
   });
 
