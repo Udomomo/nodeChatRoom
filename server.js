@@ -11,14 +11,21 @@ app.get('/client.js', function(req, res){
 });
 
 io.on('connection', function(socket){
+  var name;
   socket.on('new_entry', function(name){
     socket.broadcast.emit('chat_message', name + ' has joined.');
   });
   
   socket.on('new_message', function(data){
-    var name = data.name;
+    name = data.name;
     var msg = data.msg;
     io.emit('chat_message', name + ": " + msg);
+  });
+
+  socket.on('disconnect', function(){
+    if (name != undefined) {
+      io.emit('chat_message', name + " has left.");
+    }
   });
 });
 
