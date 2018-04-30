@@ -17,10 +17,8 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('chat_message', username + ' has joined.');
   });
   
-  socket.on('new_message', (data) => {
-    name = data.name;
-    let msg = data.msg;
-    io.emit('chat_message', name + ": " + msg);
+  socket.on('new_message', (msg) => {
+    io.emit('chat_message', username + ": " + msg);
   });
 
   socket.on('disconnect', () => {

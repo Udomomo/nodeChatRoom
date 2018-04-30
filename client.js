@@ -9,7 +9,7 @@ $(function () {
       name = $('#m').val();
       changeLabel();
     }else{
-      socket.emit('new_message', {"name": name, "msg": $('#m').val()});
+      socket.emit('new_message', $('#m').val());
     }
 
     $('#m').val('');
