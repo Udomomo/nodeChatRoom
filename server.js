@@ -11,9 +11,10 @@ app.get('/client.js', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  let name;
+  let username;
   socket.on('new_entry', (name) => {
-    socket.broadcast.emit('chat_message', name + ' has joined.');
+    username = name;
+    socket.broadcast.emit('chat_message', username + ' has joined.');
   });
   
   socket.on('new_message', (data) => {
@@ -23,8 +24,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    if (name != undefined) {
-      io.emit('chat_message', name + " has left.");
+    if (username != undefined) {
+      io.emit('chat_message', username + " has left.");
     }
   });
 });
